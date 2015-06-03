@@ -1,6 +1,7 @@
 from fabric.api import sudo, cd, path, shell_env
 from fabric.operations import reboot
 from fabric.contrib.files import exists, append
+import sys
 
 """
 References
@@ -134,12 +135,13 @@ def deploy():
 def local_deploy():
     from contextlib import contextmanager
     from fabric.api import local, lcd
-    import sys
     import os
 
     def local_sudo(cmd):
-        # assuming this code will run as root
-        local(cmd)
+        if "linux-generic" not in cmd:
+            # assuming this code will run as root
+            print "*** {0} ***".format(cmd)
+            local(cmd)
 
     @contextmanager
     def local_cd(p):
