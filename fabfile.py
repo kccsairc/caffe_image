@@ -137,14 +137,23 @@ def local_deploy():
     from contextlib import contextmanager
     from fabric.api import local, lcd
     import os
+    import re
 
     def local_sudo(cmd):
         # assuming this code will run as root
         if "apt-get" in cmd:
             if "linux-headers" in cmd:
                 local(cmd)
-        elif "--driver" in cmd:
-          local(cmd.replace("--driver ", ""))
+        elif "./cuda_7.0.28_linux.run" in cmd:
+            local("./cuda_7.0.28_linux.run -extract=/opt/archives")
+            local("./NVIDIA-Linux-x86_64-346.46.run -s -N --no-kernel-module")
+            m = re.search("--toolkitpath=(.*?)$", cmd)
+            if m is None:
+                raise RuntimeError("toolkitpath not found")
+            else:
+                prefix = "-prefix={0}".format(m.group(1))
+
+            local("./cuda-linux64-rel-7.0.28-19326674.run -noprompt {0}".format(prefix))
         else:
             local(cmd)
 
@@ -161,10 +170,11 @@ def local_deploy():
             text = "\n".join(text)
             text += "\n"
 
-        with open(p) as fp:
-            context = fp.read()
-            if text in context:
-                return None
+        if os.path.exists(p):
+            with open(p) as fp:
+                context = fp.read()
+                if text in context:
+                    return None
 
         with open(p, "a") as fp:
             fp.write(text)

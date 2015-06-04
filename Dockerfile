@@ -21,6 +21,8 @@ RUN pip install six
 RUN mkdir -p /opt/archives
 RUN cd /opt/archives && wget http://developer.download.nvidia.com/compute/cuda/7_0/Prod/local_installers/cuda_7.0.28_linux.run
 
+# clone caffe
+RUN git clone https://github.com/BVLC/caffe.git /opt/caffe/src
+
 ADD fabfile.py /opt/
-RUN cd /opt && fab local_deploy
 
