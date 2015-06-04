@@ -63,6 +63,7 @@ def _install_cuda():
         sudo("./cuda_7.0.28_linux.run -silent --driver --toolkit --toolkitpath={0}".format(cuda_path))
 
     if not exists(cuda_path):
+        sudo("cat /tmp/cuda* 1>&2")
         sudo("false")
 
     return cuda_path
@@ -138,9 +139,13 @@ def local_deploy():
     import os
 
     def local_sudo(cmd):
-        if "linux-generic" not in cmd:
-            # assuming this code will run as root
-            print "*** {0} ***".format(cmd)
+        # assuming this code will run as root
+        if "apt-get" in cmd:
+            if "linux-headers" in cmd:
+                local(cmd)
+        elif "--driver" in cmd:
+          local(cmd.replace("--driver ", ""))
+        else:
             local(cmd)
 
     @contextmanager
@@ -166,9 +171,13 @@ def local_deploy():
 
         return text
 
+    def local_reboot():
+        pass
+
     sys.modules[__name__].sudo = local_sudo
     sys.modules[__name__].cd = local_cd
     sys.modules[__name__].exists = local_exists
     sys.modules[__name__].append = local_append
+    sys.modules[__name__].reboot = local_reboot
 
     deploy()
