@@ -113,8 +113,14 @@ def deploy():
     cuda_path = _install_cuda()
 
     cuda_lib = "{0}/cuda/lib64/".format(PREFIX)
+
+    # because of licensing issue, we should delete unredistributable files.
     sudo("mkdir -p {0}/cuda".format(PREFIX))
     sudo("cp -pr {0}/lib64 {1}".format(cuda_path, cuda_lib))
+    sudo("rm {0}/libcuinj64.so*".format(cuda_lib))
+    sudo("rm {0}/libnvToolsExt.so*".format(cuda_lib))
+    sudo("rm {0}/libOpenCL.so".format(cuda_lib))
+    sudo("rm {0}/stubs/libcuda.so".format(cuda_lib))
     with path("{0}/bin".format(cuda_path), behavior="prepend"):
         with shell_env(LIBRARY_PATH=cuda_lib, LD_LIBRARY_PATH=cuda_lib, CPATH="{0}/include".format(cuda_path)):
             caffe_path = _install_caffe()
@@ -154,6 +160,9 @@ def local_deploy():
                 prefix = "-prefix={0}".format(m.group(1))
 
             local("./cuda-linux64-rel-7.0.28-19326674.run -noprompt {0}".format(prefix))
+        elif "runtest" in cmd:
+            # skip make runtest because buid server doesn't have gpu.
+            pass
         else:
             local(cmd)
 
