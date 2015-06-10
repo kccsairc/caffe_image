@@ -73,6 +73,9 @@ def _install_caffe():
 
     if not exists(caffe_path):
         sudo("git clone https://github.com/BVLC/caffe.git {0}".format(caffe_path))
+        with cd(caffe_path):
+            sudo("git checkout -b labellio 8df472af7f0d475ce866055d0665086e093aaf0e")
+
     with cd(caffe_path):
         sudo("cp Makefile.config.example Makefile.config")
         sudo("make -j`nproc` all")

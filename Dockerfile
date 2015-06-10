@@ -23,6 +23,7 @@ RUN cd /opt/archives && wget http://developer.download.nvidia.com/compute/cuda/7
 
 # clone caffe
 RUN git clone https://github.com/BVLC/caffe.git /opt/caffe/src
+RUN cd /opt/caffe/src && git checkout -b labellio 8df472af7f0d475ce866055d0665086e093aaf0e
 
 ADD fabfile.py /opt/
 RUN cd /opt && fab local_deploy
