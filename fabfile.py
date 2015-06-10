@@ -3,14 +3,6 @@ from fabric.operations import reboot
 from fabric.contrib.files import exists, append
 import sys
 
-"""
-References
---
-
-http://caffe.berkeleyvision.org/install_apt.html
-https://github.com/BVLC/caffe/wiki/Ubuntu-14.04-VirtualBox-VM
-"""
-
 PREFIX = "/opt/caffe"
 
 
@@ -131,7 +123,7 @@ def deploy():
     sudo("ln -fs {0}/build {1}/build".format(caffe_path, PREFIX))
     sudo("ln -fs {0}/python {1}/python".format(caffe_path, PREFIX))
 
-    # supress: libdc1394 error: Failed to initialize libdc1394
+    # suppress: libdc1394 error: Failed to initialize libdc1394
     if not exists("/dev/raw1394"):
         sudo("ln -s /dev/null /dev/raw1394")
         sudo("sed --in-place -e \"/^exit 0$/i ln -s /dev/null /dev/raw1394\" /etc/rc.local")

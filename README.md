@@ -35,3 +35,10 @@ Example
     >>> exit()
     $ 
     
+References
+---
+* [Ubuntu Installation](http://caffe.berkeleyvision.org/install_apt.html)
+* [Ubuntu 14.04 VirtualBox VM](https://github.com/BVLC/caffe/wiki/Ubuntu-14.04-VirtualBox-VM)
+* [Unable to load the kernel module 'nvidia.ko'](http://stackoverflow.com/questions/24734986/unable-to-load-the-kernel-module-nvidia-ko)
+* [ctypes error: libdc1394 error: Failed to initialize libdc1394](http://stackoverflow.com/questions/12689304/ctypes-error-libdc1394-error-failed-to-initialize-libdc1394)
+* [drm.ko missing for CUDA 6.5 / Ubuntu 14.04 / AWS EC2 GPU instance g2.2xlarge](http://stackoverflow.com/questions/25463952/drm-ko-missing-for-cuda-6-5-ubuntu-14-04-aws-ec2-gpu-instance-g2-2xlarge)
