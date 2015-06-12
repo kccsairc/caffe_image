@@ -27,3 +27,5 @@ RUN cd /opt/caffe/src && git checkout -b labellio 8df472af7f0d475ce866055d066508
 
 ADD fabfile.py /opt/
 RUN cd /opt && fab local_deploy
+RUN rm /opt/fabfile.py
+RUN rm /opt/fabfile.pyc

@@ -133,6 +133,8 @@ def deploy():
 
     _configure_paths("{0}/build/tools".format(PREFIX), "{0}/python".format(PREFIX), "{0}/cuda/lib64".format(PREFIX))
 
+    sudo("pip install labellio-cli")
+
 
 def local_deploy():
     from contextlib import contextmanager
