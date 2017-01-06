@@ -15,6 +15,7 @@ RUN apt-get install -y python-numpy python-scipy
 RUN apt-get install -y python-pip
 RUN apt-get install -y python-dev
 RUN apt-get install -y libssl-dev
+RUN apt-get install -y libffi-dev
 RUN pip install fabric
 RUN pip install six
 
