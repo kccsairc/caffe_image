@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ubuntu:14.04
 MAINTAINER jnory <jnory@alpacadb.com>
 
 RUN apt-get update
@@ -14,6 +14,7 @@ RUN apt-get install -y libhdf5-serial-dev bc libgflags-dev libgoogle-glog-dev li
 RUN apt-get install -y python-numpy python-scipy
 RUN apt-get install -y python-pip
 RUN apt-get install -y python-dev
+RUN apt-get install -y libssl-dev
 RUN pip install fabric
 RUN pip install six
 
