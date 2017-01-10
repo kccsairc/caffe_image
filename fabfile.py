@@ -26,6 +26,7 @@ def _install_depends():
     sudo("apt-get install -y libprotobuf-dev libleveldb-dev libsnappy-dev libopencv-dev libboost-all-dev")
     sudo("apt-get install -y libhdf5-serial-dev bc libgflags-dev libgoogle-glog-dev liblmdb-dev protobuf-compiler")
     sudo("apt-get install -y python-pip")
+    sudo("pip install -U pip")
 
 
 def _unload_nouveau():
